@@ -17,6 +17,12 @@ end
 target 'BridgeProject' do
   config = use_native_modules!
 
+  pod 'AdaptiveCards'
+  
+  # update latest ContactCenterMessagingSDK version
+  $sdkVersion = 'v1.0.2'
+  pod 'ContactCenterMessagingSDK', :podspec => 'https://github.com/microsoft/ContactCenterMessagingSDK-ios/releases/download/' + $sdkVersion + '/ContactCenterMessagingSDK-ios.podspec'
+
   use_react_native!(
     :path => config[:reactNativePath],
     # An absolute path to your application root.

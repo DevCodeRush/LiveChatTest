@@ -1,5 +1,6 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.bridgeproject">
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -9,7 +10,8 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
       android:theme="@style/AppTheme"
-      android:supportsRtl="true">
+      android:supportsRtl="true"
+      tools:replace="android:allowBackup">
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"

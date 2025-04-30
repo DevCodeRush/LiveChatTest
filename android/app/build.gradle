@@ -107,9 +107,27 @@ android {
     }
 }
 
-dependencies {
-    // The version of react-native is set by the React Native Gradle Plugin
-    implementation("com.facebook.react:react-android")
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {        
+    implementation(files("libs/ContactCenterMessagingWidget.aar"))
+    implementation(files("libs/OmnichannelChatSDK.aar"))   
+    implementation("com.google.code.gson:gson:2.10.1")  
+    implementation("com.facebook.react:react-native:+")  
+    implementation("org.webkit:android-jsc:+")  
+    implementation(project(":randombytes")) {
+        exclude group: 'com.facebook.react'
+    }
+    implementation(project(":randomvalues")) {
+        exclude group: 'com.facebook.react'
+    }
+    implementation("com.google.android.flexbox:flexbox:3.0.0")
+    implementation("com.google.android.material:material:1.0.0")
+    implementation("io.adaptivecards:adaptivecards-android:3.3.2")
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")

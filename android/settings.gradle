@@ -4,3 +4,21 @@ extensions.configure(com.facebook.react.ReactSettingsExtension){ ex -> ex.autoli
 rootProject.name = 'BridgeProject'
 include ':app'
 includeBuild('../node_modules/@react-native/gradle-plugin')
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    repositories {
+        mavenCentral()
+        maven{url = "$rootDir/node_modules"}
+        maven{url = "$rootDir/node_modules/react-native/android"}
+        maven{url = "$rootDir/node_modules/jsc-android/dist"}
+        maven{url = "https://maven.google.com"}
+        google()
+    }
+}
+
+include ':app', ':randombytes'
+project(':randombytes').projectDir = new File(rootProject.projectDir, "../node_modules/react-native-randombytes/android")
+
+include ':app', ':randomvalues'
+project(":randomvalues").projectDir = new File(rootProject.projectDir, "../node_modules/react-native-get-random-values/android")
