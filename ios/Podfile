@@ -16,9 +16,11 @@ end
 
 target 'BridgeProject' do
   config = use_native_modules!
-
   pod 'AdaptiveCards'
-  
+  pod 'GoogleUtilities', :modular_headers => true
+  pod 'FirebaseCore', :modular_headers => true
+  pod 'FirebaseInstallations', :modular_headers => true
+  pod 'FirebaseABTesting', :modular_headers => true
   # update latest ContactCenterMessagingSDK version
   $sdkVersion = 'v1.0.2'
   pod 'ContactCenterMessagingSDK', :podspec => 'https://github.com/microsoft/ContactCenterMessagingSDK-ios/releases/download/' + $sdkVersion + '/ContactCenterMessagingSDK-ios.podspec'

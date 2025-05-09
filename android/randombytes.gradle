@@ -1,0 +1,14 @@
+// This file adds explicit dependencies between the tasks
+// to fix the build errors
+
+afterEvaluate {
+    // Add dependency for extractDeepLinksDebug task
+    tasks.findByPath(':randombytes:extractDeepLinksDebug')?.dependsOn(':react-native-randombytes:generateDebugResValues')
+
+    // Also add a hook for when the task is added later
+    tasks.whenTaskAdded { task ->
+        if (task.path == ':randombytes:extractDeepLinksDebug') {
+            task.dependsOn(':react-native-randombytes:generateDebugResValues')
+        }
+    }
+}

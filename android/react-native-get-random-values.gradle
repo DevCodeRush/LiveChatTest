@@ -1,0 +1,10 @@
+// This file adds an explicit dependency between the tasks
+// to fix the build error
+
+afterEvaluate {
+    tasks.whenTaskAdded { task ->
+        if (task.name == 'packageDebugResources') {
+            task.dependsOn(':randomvalues:generateDebugResValues')
+        }
+    }
+}

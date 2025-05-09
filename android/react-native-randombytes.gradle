@@ -1,0 +1,23 @@
+// This file adds explicit dependencies between the tasks
+// to fix the build errors
+
+afterEvaluate {
+    tasks.whenTaskAdded { task ->
+        if (task.name == 'packageDebugResources') {
+            task.dependsOn(':randombytes:generateDebugResValues')
+        }
+    }
+
+    // Try to find the extractDeepLinksDebug task in the current project
+    def extractTask = tasks.findByName('extractDeepLinksDebug')
+    if (extractTask != null) {
+        extractTask.dependsOn(':react-native-randombytes:generateDebugResValues')
+    }
+
+    // Also add a hook for when the task is added later
+    tasks.whenTaskAdded { task ->
+        if (task.name == 'extractDeepLinksDebug') {
+            task.dependsOn(':react-native-randombytes:generateDebugResValues')
+        }
+    }
+}
