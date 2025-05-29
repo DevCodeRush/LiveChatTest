@@ -17,5 +17,14 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
     }
 }
+allprojects {
+    dependencies{
+        modules {
+            module("com.google.android:flexbox") {
+                replacedBy("com.google.android.flexbox:flexbox")
+            }
+        }
+    }
+}
 
 apply plugin: "com.facebook.react.rootproject"

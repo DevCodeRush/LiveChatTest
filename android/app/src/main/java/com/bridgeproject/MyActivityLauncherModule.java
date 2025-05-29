@@ -31,9 +31,13 @@ public class MyActivityLauncherModule extends ReactContextBaseJavaModule {
 
 
     private void intiSdk() throws Exception {
-        String orgId = "";
-        String orgUrl = "";
-        String widgetId = "";
+     /*   String orgId = "d0632856-677c-4608-beb4-8f110f2ce523";
+        String orgUrl = "https://unqd0632856677c4608beb48f110f2ce-crm5.omnichannelengagementhub.com";
+        String widgetId = "b1bd42be-bef0-41e7-b0f6-25f410b7bf48";*/
+        String orgId = "ce4db5f6-1c20-ee11-a66d-000d3a0a02f3";
+        String orgUrl = "https://m-ce4db5f6-1c20-ee11-a66d-000d3a0a02f3.ca.omnichannelengagementhub.com";
+        String widgetId = "323c845c-673a-4d5e-86cd-600596f89b2a";
+
         OmnichannelConfig omnichannelConfig = new OmnichannelConfig(orgId, orgUrl, widgetId);
         TelemetrySDKConfig telemetryConfig = new TelemetrySDKConfig(false);
         ChatSDKConfig chatSdkConfig = new ChatSDKConfig();
