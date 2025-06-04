@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:id="@+id/formLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <EditText
+            android:id="@+id/editOrgId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Organization ID"
+            android:padding="10dp"
+            android:layout_margin="10dp"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/editOrgUrl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Organization URL"
+            android:inputType="textUri"
+            android:padding="10dp"
+            android:layout_margin="10dp"
+            android:layout_marginTop="12dp" />
+
+        <EditText
+            android:id="@+id/editWidgetId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Widget ID"
+            android:inputType="text"
+            android:padding="10dp"
+            android:layout_margin="10dp"
+            android:layout_marginTop="12dp" />
+
+        <EditText
+            android:id="@+id/editAuth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="auth (optional)"
+            android:inputType="text"
+            android:padding="10dp"
+            android:layout_margin="10dp"
+            android:layout_marginTop="12dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/launchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chat"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:background="@drawable/rounded_button"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="40dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp" />
+
+</FrameLayout>

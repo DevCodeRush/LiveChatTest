@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f0f0f0',
   },
   roundButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#A90000',
     borderRadius: 50,
     paddingVertical: 14,
     paddingHorizontal: 40,

@@ -1,6 +1,7 @@
 package com.bridgeproject;
 
 import android.app.Activity;
+import android.content.Intent;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -26,7 +27,10 @@ public class MyActivityLauncherModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void openActivity() throws Exception {
-        intiSdk();
+        //intiSdk();
+        Intent intent = new Intent(reactContext, MyNewActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // Required when using context not from Activity
+        reactContext.startActivity(intent);
     }
 
 

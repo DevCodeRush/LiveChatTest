@@ -5,12 +5,15 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.activity.ComponentActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.lcw.lsdk.builder.LCWOmniChannelConfigBuilder;
 import com.lcw.lsdk.chat.LiveChatMessaging;
@@ -18,62 +21,59 @@ import com.lcw.lsdk.data.requests.ChatSDKConfig;
 import com.lcw.lsdk.data.requests.OmnichannelConfig;
 import com.lcw.lsdk.data.requests.TelemetrySDKConfig;
 
-public class MyNewActivity extends ComponentActivity {
+import java.util.Objects;
+
+public class MyNewActivity extends AppCompatActivity {
+    private EditText editOrgId, editOrgUrl, editWidgetId, editAuth;
+    private String orgId = "d0632856-677c-4608-beb4-8f110f2ce523";
+    String orgUrl = "https://unqd0632856677c4608beb48f110f2ce-crm5.omnichannelengagementhub.com";
+    String widgetId = "b1bd42be-bef0-41e7-b0f6-25f410b7bf48";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_my_new);
+
+        editOrgId = findViewById(R.id.editOrgId);
+        editOrgUrl = findViewById(R.id.editOrgUrl);
+        editWidgetId = findViewById(R.id.editWidgetId);
+        editAuth = findViewById(R.id.editAuth);
+        Button launchButton = findViewById(R.id.launchButton);
+
         try {
             intiSdk();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            Log.d("intiSdk", e.getLocalizedMessage());
         }
-        FrameLayout layout = new FrameLayout(this);
 
-        // Create the button
-        Button button = new Button(this);
-        button.setText("Click To Launch SDK");
-        button.setTextSize(18);
+        launchButton.setOnClickListener(view -> {
+            orgId = editOrgId.getText().toString().trim();
+            orgUrl = editOrgUrl.getText().toString().trim();
+            widgetId = editWidgetId.getText().toString().trim();
 
-        // Round button shape
-        GradientDrawable shape = new GradientDrawable();
-        shape.setShape(GradientDrawable.RECTANGLE);
-        shape.setCornerRadius(100);
-        shape.setColor(0xFF6200EE);
-        button.setBackground(shape);
-        button.setTextColor(0xFFFFFFFF);
+            if (orgId.isEmpty() || orgUrl.isEmpty() || widgetId.isEmpty()) {
+                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-        // Set layout parameters to bottom right
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.WRAP_CONTENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT
-        );
-        params.gravity = Gravity.BOTTOM | Gravity.END;
-        params.setMargins(0, 0, 40, 40); // right & bottom margin
-
-        button.setLayoutParams(params);
-
-        // Click listener
-        button.setOnClickListener(view -> {
             try {
                 launchSdk();
-                Toast.makeText(getApplicationContext(), "Launching..", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Launching...", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                Log.d("launchSdk", e.getLocalizedMessage());
             }
         });
-
-        layout.addView(button);
-        setContentView(layout);
     }
 
     private void intiSdk() throws Exception {
-        String orgId = "ce4db5f6-1c20-ee11-a66d-000d3a0a02f3";
-        String orgUrl = "https://m-ce4db5f6-1c20-ee11-a66d-000d3a0a02f3.ca.omnichannelengagementhub.com";
-        String widgetId = "d6f95e7c-7c08-4eae-b6d3-8c15e7421ee7";
+        editOrgId.setText(orgId);
+        editOrgUrl.setText(orgUrl);
+        editWidgetId.setText(widgetId);
         OmnichannelConfig omnichannelConfig = new OmnichannelConfig(orgId, orgUrl, widgetId);
         TelemetrySDKConfig telemetryConfig = new TelemetrySDKConfig(false);
         ChatSDKConfig chatSdkConfig = new ChatSDKConfig(
-            null, telemetryConfig, null, null, null,null
+                null, telemetryConfig, null, null, null, null
         );
         LCWOmniChannelConfigBuilder lcwOmniChannelConfigBuilder =
                 new LCWOmniChannelConfigBuilder.EngagementBuilder(omnichannelConfig, chatSdkConfig, null).build();
@@ -84,14 +84,12 @@ public class MyNewActivity extends ComponentActivity {
 
     private void launchSdk() throws Exception {
         Activity currentActivity = this;
-        if (currentActivity != null) {
-            new Handler(Looper.getMainLooper()).post(() -> {
-                try {
-                    LiveChatMessaging.getInstance().launchLcwBrandedMessaging(currentActivity);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
-        }
+        LiveChatMessaging.getInstance().launchLcwBrandedMessaging(currentActivity);
+    }
+
+    @Override
+    protected void  onPause() {
+        super.onPause();
+        LiveChatMessaging.getInstance().unmount();
     }
 }
